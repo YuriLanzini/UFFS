@@ -1,0 +1,13 @@
+module BO(
+input [9:0] SW,
+output[9:0] LEDR
+);
+
+parameter A = 5;
+parameter B = 2;
+parameter C = 10;
+parameter D = 7;
+
+mux4x1 mux0(.am(A),.bm(B),.cm(C), .ym(D), .sel(SW[1:0]),.saidaMux(LEDR));
+
+endmodule
