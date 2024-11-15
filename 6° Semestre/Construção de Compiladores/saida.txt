@@ -1,0 +1,29 @@
+if
+(
+ID
+==
+INTEGER
+)
+{
+LINE
+RETURN
+ID
++
+INTEGER
+;
+LINE
+}
+else
+{
+LINE
+ID
+=
+FLOAT
+;
+LINE
+}
+$
+
+Tabela de Símbolos:
+x: {'type': 'identifier', 'value': None, 'value_type': None}
+y: {'type': 'identifier', 'value': 48.8, 'value_type': 'FLOAT'}
