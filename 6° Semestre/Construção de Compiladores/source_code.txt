@@ -1,5 +1,6 @@
-if (x == 10) { 
-    return x + 1;
-}else{ 
-    y = 48.8;
+if (x == 10) {
+    y = 10 ; 
+} 
+else{
+    return x; 
 }

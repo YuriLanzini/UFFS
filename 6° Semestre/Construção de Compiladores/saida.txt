@@ -6,24 +6,22 @@ INTEGER
 )
 {
 LINE
-RETURN
 ID
-+
+=
 INTEGER
 ;
 LINE
 }
+LINE
 else
 {
 LINE
+RETURN
 ID
-=
-FLOAT
 ;
 LINE
 }
 $
 
 Tabela de Símbolos:
-x: {'type': 'identifier', 'value': None, 'value_type': None}
-y: {'type': 'identifier', 'value': 48.8, 'value_type': 'FLOAT'}
+y: {'type': 'identifier', 'value': 10, 'value_type': 'INTEGER'}

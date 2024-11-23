@@ -7,6 +7,8 @@ class LexicalAnalyzer:
         self.output_tape = []
         self.line_number = 1 
 
+
+
     def _read_source_code(self, file_path):
         with open(file_path, 'r') as file:
             return file.read()
@@ -51,6 +53,7 @@ class LexicalAnalyzer:
         elif self._caracter == '/':
             self._q18()  # Operador '/'
         elif self._caracter == '=':
+            # print('foi')
             self._q19()  # Operador '='
         elif self._caracter == '!':
             self._q20()  # Operador '!'
@@ -236,10 +239,13 @@ class LexicalAnalyzer:
         value_type = None 
         if self._caracter == '=':
             self._obter_caracter()
-            if self._caracter != '=':    
-                rst += 2
-                
+            
+            if self._caracter != '=':   
+                rst += 3
+                if self._caracter == ';':
+                    num = None
                 if self._caracter.isdigit():
+                    
                     is_float = False  
                     while self._caracter.isdigit() or self._caracter == '.':
                         if self._caracter == '.':
@@ -255,19 +261,19 @@ class LexicalAnalyzer:
                             num = ''  
                         else:
                             value_type = 'FLOAT'
-                            num = float(num) 
+                            num = float(num)
                     else:
                         value_type = 'INTEGER'
-                        num = int(num) 
+                        num = int(num)
             else:
                 rst += 1
 
         self.position -= rst   
 
-        if identifier not in self.symbols_table:
+        if identifier not in self.symbols_table and num != '':
             self.symbols_table[identifier] = {
                 'type': 'identifier', 
-                'value': num if num else None, 
+                'value': num, 
                 'value_type': value_type
             }
             num = ''
@@ -276,7 +282,6 @@ class LexicalAnalyzer:
         
         self.position -= 1  
         self._q0()
-
 
     # Funções de estado para operadores
     def _q15(self):  # Operador '+'
@@ -297,11 +302,15 @@ class LexicalAnalyzer:
 
     def _q19(self):  # Operador '='
         self._obter_caracter()
+        # print(self._caracter)
+        # print(self.output_tape)
+
         if self._caracter == '=':
             self.output_tape.append('==')
         else:
+            self.position -= 1 
             self.output_tape.append('=')
-            self.position -= 1  
+             
         self._q0()
 
     def _q20(self):  # Operador '!'
@@ -363,6 +372,8 @@ class LexicalAnalyzer:
     def analyze(self):
         self._q0()
         self.output_tape.append('$')
+        output_file_path = 'saida.txt'
+        self.save_results_to_file(output_file_path)
 
     def save_results_to_file(self, output_file_path):
         with open(output_file_path, 'w') as file:
@@ -374,9 +385,4 @@ class LexicalAnalyzer:
             for symbol, info in self.symbols_table.items():
                 file.write(f"{symbol}: {info}\n")
 
-if __name__ == "__main__":
-    file_path = 'source_code.txt' 
-    analyzer = LexicalAnalyzer(file_path)
-    output_file_path = 'saida.txt'
-    analyzer.analyze()
-    analyzer.save_results_to_file(output_file_path)
+    
